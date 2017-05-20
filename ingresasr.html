@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<title>Ingresar</title>
+		<meta charset="UTF-8"/>
+		<script type="text/javascript" src="jquery-3.2.1.js"></script>
+		<script type="text/javascript" src="jquery-3.2.1.js"></script>
+		<!--Import Google Icon Font-->
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="../materialize/css/materialize.css"  media="screen,projection"/>
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	</head>
+	<body background="pantano.jpg">
+			<ul id="dropdown1" class="dropdown-content">
+				<li><a href="#!">Facebook</a></li>
+				<li><a href="#!">Youtube</a></li>
+				<li class="divider"></li>
+				<li><a href="#!">three</a></li>
+			</ul>
+			<nav class="card  grey darken-4">
+				<figure>
+					<img href="../resources/logo.jpg"/>
+					<figcaption>Logo</figcaption>
+				</figure>
+			</nav>
+		
+			<div class="container">
+				<div class="card-content white-text center-align">
+					<div class="green lighten-1">
+						<div class="card grey darken-4" >
+							<h2>Bienvenid@</h2>
+							<a class="btn tooltipped" data-position="bottom" data-delay="20" data-tooltip="llena los campos para ingresar">Ingresar</a>
+							<a class="btn disabled">Registrarse</a>
+							<ul class="collapsible" data-collapsible="accordion">
+								<li>
+									<div class="collapsible-header black-text"><i class="material-icons ">person-pin</i>Usuario</div>
+									<div class="collapsible-body"><span>Llena el primer campo</span></div>
+								</li>
+								<li>
+									<div class="collapsible-header black-text">
+										<i class="material-icons">lock_outline</i>Contraseña</div>
+									<div class="collapsible-body"><span>Llena el segundo campo</span></div>
+								</li>
+							</ul>
+							<form class="fm" method="POST">
+								<i class="material-icons center-left">person-pin</i>
+								<input type="text" id="us" maxlength="10">
+								<i class="material-icons">lock_outline</i>
+								<input type="password" id="pass"maxlength="8">
+							</form>
+							<button>Enviar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		<aside>
+			<!--<figure>
+				<img href="../resources/imegen.jpg"/>
+				<figcaption>imagen con relacion a la red</figcaption>
+			</figure>-->
+		</aside>
+		<footer>
+			<small>Hecho por:<br/>Ady,Azaid,Daniel y Karla</small>
+		</footer>
+		<script type="text/javascript">
+		var x;
+		var val=0;
+		var val1=0;
+		var val2=0;
+		var usu=[];
+		$("form").change(function(){
+			var pss=/^(?=.*[A-ZÑ]{1}).*(?=.*[a-zñ]{1}).*(?=.*\W{1}).*(?=.*\d{1}).{8}$/;
+			if(pss.test($("#pass").val()))
+				val1=1;
+			var ps=/^[A-z]{1,10}$/;
+			if(ps.test($("#us").val()))
+				val2=1;
+			val=(val1+val2)/2;
+		});
+		$.ajax({
+			url:"../programs/usuarios.php",
+			type:"GET",
+			data:{
+				m: x
+			},
+			success:function(resul){
+			    resul=JSON.stringify(resul);
+				resul=resul.split('\"');
+				usu[0]=resul[2];
+				usu[1]=resul[4];
+				usu[2]=resul[6];
+				usu[3]=resul[8];
+			}
+		});
+		$("button").click(function(){
+			if(val==1){
+					var usuario=$("#us").val()+" "+$("#pass").val()+"\\";
+					for(i=0;i<4;i++){
+						if(usu[i]==usuario)
+							var n=1;
+					}
+					if(n==1){
+						document.cookie="user="+$("#us").val()+"; path=/";
+						window.location="principal.html";
+					}
+					else
+						alert("No estas registrado");
+			}
+			else 
+				alert("Tienes caracteres que no debes tener");
+		});
+		</script>
+		<div>
+		</div>
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="../materialize/js/materialize.js"></script>
+	</body>
+</html>
