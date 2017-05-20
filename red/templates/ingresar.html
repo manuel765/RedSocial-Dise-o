@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<title>Ingresar</title>
+		<meta charset="UTF-8"/>
+		<script type="text/javascript" src="jquery-3.2.1.js"></script>
+	</head>
+	<body>
+		<nav>
+			<figure>
+				<img href="../resources/logo.jpg"/>
+				<figcaption>Logo</figcaption>
+			</figure>
+			<h2>Ingresar</h2>
+			<form class="fm" method="POST">
+				<label>Usuario:</label>
+				<input type="text" id="us" maxlength="10">
+				<label>Contraseña:</label>
+				<input type="password" id="pass"maxlength="8">
+			</form>
+			<button>Enviar</button>
+		</nav>
+		<aside>
+			<figure>
+				<img href="../resources/imegen.jpg"/>
+				<figcaption>imagen con relacion a la red</figcaption>
+			</figure>
+		</aside>
+		<footer>
+			<small>Hecho por:<br/>Ady,Azaid,Daniel y Karla</small>
+		</footer>
+		<script type="text/javascript">
+		var x;
+		var val=0;
+		var val1=0;
+		var val2=0;
+		var usu=[];
+		$("form").change(function(){
+			var pss=/^(?=.*[A-ZÑ]{1}).*(?=.*[a-zñ]{1}).*(?=.*\W{1}).*(?=.*\d{1}).{8}$/;
+			if(pss.test($("#pass").val()))
+				val1=1;
+			var ps=/^[A-z]{1,10}$/;
+			if(ps.test($("#us").val()))
+				val2=1;
+			val=(val1+val2)/2;
+		});
+		$.ajax({
+			url:"../programs/usuarios.php",
+			type:"GET",
+			data:{
+				m: x
+			},
+			success:function(resul){
+			    resul=JSON.stringify(resul);
+				resul=resul.split('\"');
+				usu[0]=resul[2];
+				usu[1]=resul[4];
+				usu[2]=resul[6];
+				usu[3]=resul[8];
+			}
+		});
+		$("button").click(function(){
+			if(val==1){
+					var usuario=$("#us").val()+" "+$("#pass").val()+"\\";
+					for(i=0;i<4;i++){
+						if(usu[i]==usuario)
+							var n=1;
+					}
+					if(n==1){
+						document.cookie="user="+$("#us").val()+"; path=/";
+						window.location="principal.html";
+					}
+					else
+						alert("No estas registrado");
+			}
+			else 
+				alert("Tienes caracteres que no debes tener");
+		});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+<!Doctype html>
+<html lang ="es">
+        <head>
+			<title id="title"></title>
+			<meta charset="UTF-8"/>
+			<script type="text/javascript" src="jquery-3.2.1.js"></script>
+        </head>
+         <body>
+            <header>
+                   <figure>
+				<img href="../resources/logo.jpg"/>
+				<figcaption>Logo</figcaption>
+			</figure>
+                     <figure>
+				<img href="../resources/usuario .jpg"/>
+				<figcaption>Usuario</figcaption>
+			</figure>
+                      <h2 id="perfil">nombre usuario</h2>
+             </header>
+              <nav>
+                 <li>mi perfil</li>
+                  <li>amigos</li>
+                 <li>otras publicaciones</li>
+              </nav>
+			  <section>
+				
+			  </section>
+			  <script type="text/javascript">
+				var x;
+				var user=document.cookie.split('=');
+				var us=user[1];
+				$("#perfil").html(us);
+				$("#title").html(us);
+				$.ajax({
+					url:"../programs/publicaciones.php",
+					type:"GET",
+					data:{
+						m: x
+					},
+					success:function(resul){
+						console.log(resul);
+					}
+				});
+			</script>
+        </body>
+</html>

@@ -1,0 +1,115 @@
+<!Doctype html>
+<html lang ="es">
+        <head>
+			<title id="title"></title>
+			<meta charset="UTF-8"/>
+			<script type="text/javascript" src="jquery-3.2.1.js"></script>
+        </head>
+         <body>
+            <header>
+                   <figure>
+				<img href="../resources/logo.jpg"/>
+				<figcaption>Logo</figcaption>
+			</figure>
+                     <figure>
+				<img href="../resources/usuario .jpg"/>
+				<figcaption>Usuario</figcaption>
+			</figure>
+                      <h2 id="perfil">nombre usuario</h2>
+             </header>
+              <nav>
+                 <li>mi perfil</li>
+                  <li>amigos</li>
+                 <li>otras publicaciones</li>
+              </nav>
+			  <section>
+				<h2>Publicar</h2>
+				<textarea cols="50" rows="5" placeholder="¿Qué hay de nuevo?"></textarea>
+				<button id="publicar">Publicar</button>
+			  </section>
+			  <section id="publicaciones">
+			  </section>
+			  <section id="otras">
+					<h2>otras publicaciones</h2>
+					<table>
+						<tr>
+						</tr>
+					</table>
+			  </section>
+			  <section>
+					<h2>Amigos</h2>
+					<table>
+						<tr>
+						</tr>
+					</table>
+			  </section>
+			  <script type="text/javascript">
+				var x;
+				var n=0;
+				var usu=[];
+				var pbl=[];
+				var i=0;
+				var user=document.cookie.split('=');
+				var us=user[1];
+				$("#perfil").html(us);
+				$("#title").html(us);
+				$.ajax({
+						url:"../programs/amigos.php",
+						type:"GET",
+						data:{
+							m: x
+						},
+						success:function(resul){
+							console.log(resul);
+							resul=JSON.stringify(resul);
+							resul=resul.split('\"');
+							usu[0]=resul[2];
+							usu[1]=resul[4];
+							usu[2]=resul[6];
+							usu[3]=resul[8];
+							console.log(us);
+							for(var m=0;m<4;m++)
+								if(usu[m]!=us+" \\"){
+									$("table:last").add("<td>"+usu[m]+"</td>").appendTo(document.body);
+									$("table").add("<tr></tr>").appendTo(document.body);
+								}
+						}
+					});
+				$("#publicar").click(function(){
+					$("#publicaciones").empty();
+					var d=new Date();
+					pbl[i]=d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()+"a las "+d.getHours()+":"+d.getMinutes()+"<br/>"+$("textarea").val();
+					if(n==0)	
+						$("#publicaciones").add("<h2>Publicaciones</h2>").appendTo(document.body);
+					pbl.forEach(function(value){
+						$("#publicaciones").add("<div></div>").appendTo(document.body);
+						$("#publicaciones:last").append("<br/>"+us+"   fecha p. "+value);
+						$("#publicaciones:last").append("<br/><span>like<span><br/>");
+						$("#publicaciones:last").append("<br/><textarea cols='30' rows='2' placeholder='Comentar..'></textarea>");
+						$("#publicaciones:last").append("<button class='comentar'>Comentar</button>");
+						
+					});
+					n=1;
+					i++;
+					$(".comentar").click(function(){
+							var com=this.previousSibling.value;
+							var el=document.createElement("div");
+							l=this.parentNode.insertBefore(el,this.previousSibling);
+							l.innerHTML=(d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()+"a las "+d.getHours()+":"+d.getMinutes()+"<br/>"+com);
+
+					});
+					$("span").click(function(){
+							$("span").append("<li>like</li>");
+							$("span").append("<li>love</li>");
+							$("span").append("<li>risa</li>");
+							$("span").append("<li>enojo</li>");
+							$("li").click(function(){
+								var rec=this.innerHTML;
+								$("span").empty();
+								$("span").append(rec+" <img src='../resources/images/"+rec+".gif'/>");
+							});
+					});
+				});
+			  </script>
+        </body>
+</html>
