@@ -1,0 +1,36 @@
+﻿<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg" version='1.1'>		      
+					
+					<filter id="f1" x="0" y="0">
+		      			<feGaussianBlur in="SourceGraphic" stdDeviation="25" />
+		    		</filter>
+
+		    		<circle cx="125" cy="125" r="125" fill="red" filter=""/>
+
+					<rect x="5" y="80" width="240" height="20" rx="20" ry="15" transform="translate(0,25)"/>
+					<path d="M 50 80 C 70 0, 170 0, 200 80" transform="translate(0,25)" />
+					<path d="M 50 60 C 70 50, 170 50, 200 60 z" fill="white" transform="translate(0,25)" stroke="gray"/>
+
+					<ellipse cx="125" cy="125" rx="90" ry="50" fill="#62EC08" transform="translate(0,25)"/>
+
+					<ellipse cx="125" cy="125" rx="60" ry="75" fill="#62EC08" transform=" scale(.60) translate(15,30) rotate(15)"/>
+					<ellipse cx="125" cy="125" rx="60" ry="75" fill="#62EC08" transform=" scale(.60) translate(163,90) rotate(-15)"/>
+
+					<ellipse cx="125" cy="125" rx="60" ry="75" fill="#43AA00" transform=" scale(.60) translate(200,30)"/>
+					<ellipse cx="125" cy="125" rx="60" ry="75" fill="#43AA00" transform=" scale(.60) translate(-30,30)"/>
+
+					<ellipse cx="125" cy="125" rx="60" ry="80" fill="#FF8016" transform=" scale(.50) translate(0,50) rotate(5)"/>
+					<ellipse cx="125" cy="125" rx="60" ry="80" fill="#FF8016" transform=" scale(.50) translate(255,70) rotate(-5)" />
+
+					<ellipse cx="60" cy="100" rx="10" ry="20" fill="black" />
+					<ellipse cx="190" cy="100" rx="10" ry="20" fill="black"/>
+
+					<ellipse cx="55" cy="90" rx="5" ry="10" fill="white" />
+					<ellipse cx="185" cy="90" rx="5" ry="10" fill="white" />
+
+					<a href="http://aberoth.com" target="_blank"><polygon points="120,124 115,132  120,140"  transform="translate(-10)"/></a>
+					<polygon points="120,124 115,132  120,140" transform="rotate(180 125 125) translate(-10,-14)"/>
+
+					<path d="M130 10 C 120 20, 180 20, 170 10" fill="#62EC08" transform="translate(-400,120) scale(3.5,3)"/>
+
+					<path d="M 80 80 C 70 90, 170 90, 170 80" fill="#FFD96C" transform="translate(0,75)"/>
+</svg> 

@@ -1,0 +1,155 @@
+<!Doctype html>
+<html lang ="es">
+        <head>
+			<title id="title"></title>
+			<meta charset="UTF-8"/>
+			<script type="text/javascript" src="jquery-3.2.1.js"></script>
+			<!--Import Google Icon Font-->
+			<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<!--Import materialize.css-->
+			<link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        </head>
+         <body background="images/pantano.jpg">
+			<nav class="card  light-green ">
+				<div class="nav-wrapper">
+						<img src="../resources/images/frogman.png" srcset="../resources/images/frogman.svg" alt="FROGROOT" height="60px" width="60px" />
+						<a href="#!" class="brand-logo" style="font-family:'Courier New'">...Estás en Frogroot! :D</a>
+						<ul class="right hide-on-med-and-down">
+						<li><a href="#!">Mi Perfil</a></li>
+						<li><a id="ot">Otras Publicaciones</a></li>
+						</ul>
+				</div>			
+			</nav>
+			<header>
+			  <div class="container">
+					<div class="row">
+					  <div class="col s4 l12">
+					  <header>
+						<div class="#558b2f light-green darken-3">
+							<div class="card-content white-text center-align">
+								<font color="white"><h3 id="perfil">Nombre usuario</h3></font>
+								<img id="foto" src="../resources/images/4.jpg"/>
+								<figcaption><font color="green">Usuario</font></figcaption>
+								<button id="cambiar" class='btn waves-effect waves-light' type='submit' name='action'>Cambiar<i class='material-icons right'>send</i></button>
+								<span id="m"></span>
+							</div>
+						</div>
+						</header>
+								<section>
+									<div class="card-content light-green white-text center-align">
+										<font style="font-family:'Courier New'"><h3>Publicar?</h3></font>
+								  </div>
+								  <div class="card-content center-align">
+									<font color="white"><textarea cols="50" rows="5" placeholder="¿Qué hay de nuevo?"></textarea> </font>
+									<button id="publicar">Publicar</button>
+								   </div>
+								</section>
+							  <section id="publicaciones">
+							  </section>
+						  <section>
+								<div class="card-content light-green white-text center-align">
+										<font style="font-family:'Courier New'"><h3>Amigos</h3></font>
+								  </div>
+								 <div class="col s4 l12">
+									<table>
+										<tr>
+										</tr>
+									</table>
+								</div>
+						  </section>
+					  </div>
+					</div>
+			 </div>
+			  <script type="text/javascript">
+				var x;
+				var n=0;
+				var usu=[];
+				var pbl=[];
+				var i=0;
+				var user=document.cookie.split('=');
+				var us=user[1].split(';');
+				var im=user[2];
+				$("#perfil").html(us[0]);
+				$("#title").html(us[0]);
+				$("#foto").attr("src",im);
+				$.ajax({
+						url:"../programs/amigos.php",
+						type:"GET",
+						data:{
+							m: x
+						},
+						success:function(resul){
+							console.log(resul);
+							resul=JSON.stringify(resul);
+							resul=resul.split('\"');
+							usu[0]=resul[2];
+							usu[1]=resul[4];
+							usu[2]=resul[6];
+							usu[3]=resul[8];
+							console.log(us);
+							for(var m=0;m<4;m++)
+								if(usu[m]!=us+" \\"){
+									$("table:last").add(" <div class='container'><div class='card-content #aed581 light-green lighten-2 white-text center-align'>"+usu[m]+"</font></td></div></div>").appendTo(document.body);
+									$("table").add("<tr></tr>").appendTo(document.body);
+								}
+						}
+					});
+				$("#ot").click(function(){
+							window.location="publicaciones.html";
+					});
+				$("#publicar").click(function(){
+					$("#publicaciones").empty();
+					var d=new Date();
+					pbl[i]=d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()+"a las "+d.getHours()+":"+d.getMinutes()+"<br/>"+$("textarea").val();
+					if(n==0)	
+						$("#publicaciones").add("<h2 class='white-text'>Publicaciones</h2>").appendTo(document.body);
+					pbl.forEach(function(value){
+						$("#publicaciones").add("<div></div>").appendTo(document.body);
+						$("#publicaciones:last").append("<br/><p><blockquote class='white-text'>"+us+"   fecha p. "+value+"</blockquote></p>");
+						$("#publicaciones:last").append("<br/><p class='material-icons white-text'>thumb_up</p><span id='p' style='color: white'>like</span><br/>");
+						$("#publicaciones:last").append("<br/><textarea style='color: white' cols='30' rows='2' placeholder='Comentar..'></textarea>");
+						$("#publicaciones:last").append("<button class='comentar btn waves-effect waves-light' type='submit' name='action'>Comentar<i class='material-icons right'>send</i></button>");
+						
+					});
+					n=1;
+					i++;
+					$(".comentar").click(function(){
+							var com=this.previousSibling.value;
+							var el=document.createElement("div");
+							l=this.parentNode.insertBefore(el,this.previousSibling);
+							l.innerHTML=("<p class='white-text'>"+d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()+"a las "+d.getHours()+":"+d.getMinutes()+"<br/>"+com+"</p>");
+
+					});
+					$("span").click(function(){
+							$("#p").append("<li>like</li>");
+							$("#p").append("<li>love</li>");
+							$("#p").append("<li>risa</li>");
+							$("#p").append("<li>enojo</li>");
+							$("li").click(function(){
+								var rec=this.innerHTML;
+								$("#p").empty();
+								$("#p").append(rec+" <img src='../resources/images/"+rec+".gif'/>");
+							});
+					});
+				});
+				$("#cambiar").click(function(){
+					$("#m").append("<div id='slc'>Escoge una</div>");
+					for(var i=1;i<=10;i++)
+						$("#slc").append("<img src='../resources/images/"+i+".jpg'/>");
+					$("#slc").append("<button id='li' class='btn waves-effect waves-light' type='submit' name='action'>Listo<i class='material-icons right'>send</i></button>");
+					$("img").click(function(){
+						im=this.getAttribute('src');
+						$("#foto").attr("src",im);
+					});
+					$("#li").click(function(){
+						document.cookie="imagen="+im+"; path=/";
+						$("#m").empty();
+					});
+				});
+			  </script>
+			  <!--Import jQuery before materialize.js-->
+			<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+			<script type="text/javascript" src="materialize/js/materialize.js"></script>
+        </body>
+</html>

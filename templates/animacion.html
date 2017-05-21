@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta http-equiv="Refresh" content="12; URL=principal.html">
+		<title>Espera</title>
+		<style type="text/css">
+		#izquierdo, #derecho
+		{
+			height: 50px; 
+			width:100px; 
+			background-image: url(../resources/images/izquierdo.png);
+			position: absolute;
+			top:30%; 
+		}
+		#derecho
+		{
+			background-image: url(../resources/images/derecho.png);
+			top:15%; 
+		}
+		</style>
+	</head>
+	<body>
+		<div id="derecho" style="right:10px;" >
+		</div>	
+		<div id="izquierdo" style="right:10px">
+		</div>
+	</body>		
+	<script type="text/javascript" <script src="jquery-3.2.1.js"></script>
+	<script type="text/javascript">
+	var izqpos = 150;
+	var derpos = 150;
+	function pisadad()
+	{	
+		$("#derecho").attr("style","right:"+izqpos+"px;");
+		$("#derecho").fadeOut(1000);
+		derpos+=50;
+		if(izqpos>=1000||derpos>=1000)
+			{
+				izqpos=0;
+				derpos=0;
+			}
+	}
+	function pisadai()
+	{
+		$("#izquierdo").attr("style","right:"+derpos+"px;");
+		$("#izquierdo").fadeOut(1000);
+		izqpos+=50;
+	}
+	setInterval(pisadad,900);
+	setInterval(pisadai,1000);
+	</script>	
+</html>

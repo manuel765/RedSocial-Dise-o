@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<title>Ingresar</title>
+		<meta charset="UTF-8"/>
+		<script type="text/javascript" src="jquery-3.2.1.js"></script>
+		<script type="text/javascript" src="jquery-3.2.1.js"></script>
+		<!--Import Google Icon Font-->
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="materialize/css/materialize.css"  media="screen,projection"/>
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	</head>
+	<body background="images/pantano.jpg">
+			<ul id="dropdown1" class="dropdown-content">
+				<li><a href="#!">Facebook</a></li>
+				<li><a href="#!">Youtube</a></li>
+				<li class="divider"></li>
+				<li><a href="#!">three</a></li>
+			</ul>
+			<nav class="card  grey darken-4">
+				<figure>
+					<img src="../resources/images/frogman.png" srcset="../resources/images/frogman.svg" alt="FROGROOT" height="60px" width="60px" />
+				</figure>
+			</nav>
+		
+			<div class="container">
+				<div class="card-content white-text center-align">
+					<div class="green lighten-1">
+						<div class="card grey darken-4" >
+							<h2>Bienvenid@</h2>
+							<a class="btn tooltipped" data-position="bottom" data-delay="20" data-tooltip="llena los campos para ingresar">Ingresar</a>
+							<a class="btn disabled">Registrarse</a>
+							</br>
+							</br></br>
+							<form class="fm" method="POST">
+								<i class="material-icons center-left">perm_identity</i>
+								<input type="text" id="us" maxlength="10" placeholder="     Usuario">
+								<i class="material-icons">lock_outline</i>
+								<input type="password" id="pass"maxlength="8"  placeholder="      Contraseña">
+							</form>
+							<button>Enviar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		<aside>
+			<!--<figure>
+				<img href="../resources/imegen.jpg"/>
+				<figcaption>imagen con relacion a la red</figcaption>
+			</figure>-->
+		</aside>
+		<footer>
+ 			<ul id="dropdown2" class="dropdown-content">
+ 				<li><a href="#!">Realizado por:</a></li>	
+ 				<li><a href="#!">Ady</a></li>
+ 				<li><a href="#!">Azaid</a></li>
+ 				<li><a href="#!">Daniel</a></li>
+ 				<li><a href="#!">Karla</a></li>
+ 			</ul>
+ 			<a class="btn dropdown-button" href="#!" data-activates="dropdown2">Créditos<i class="mdi-navigation-arrow-drop-down right"></i></a>
+		</footer>
+		<script type="text/javascript">
+		var x;
+		var val=0;
+		var val1=0;
+		var val2=0;
+		var usu=[];
+		$("form").change(function(){
+			var pss=/^(?=.*[A-ZÑ]{1}).*(?=.*[a-zñ]{1}).*(?=.*\W{1}).*(?=.*\d{1}).{8}$/;
+			if(pss.test($("#pass").val()))
+				val1=1;
+			var ps=/^[A-z]{1,10}$/;
+			if(ps.test($("#us").val()))
+				val2=1;
+			val=(val1+val2)/2;
+		});
+		$.ajax({
+			url:"../programs/usuarios.php",
+			type:"GET",
+			data:{
+				m: x
+			},
+			success:function(resul){
+			    resul=JSON.stringify(resul);
+				resul=resul.split('\"');
+				usu[0]=resul[2];
+				usu[1]=resul[4];
+				usu[2]=resul[6];
+				usu[3]=resul[8];
+			}
+		});
+		$("button").click(function(){
+			if(val==1){
+					var usuario=$("#us").val()+" "+$("#pass").val()+"\\";
+					for(i=0;i<4;i++){
+						if(usu[i]==usuario)
+							var n=1;
+					}
+					if(n==1){
+						document.cookie="user="+$("#us").val()+"; path=/";
+						document.cookie="imagen=../resources/images/4.jpg; path=/";
+						window.location="animacion.html";
+					}
+					else
+						alert("No estas registrado");
+			}
+			else 
+				alert("Tienes caracteres que no debes tener");
+		});
+		</script>
+		<div>
+		</div>
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="materialize/js/materialize.js"></script>
+	</body>
+</html>
